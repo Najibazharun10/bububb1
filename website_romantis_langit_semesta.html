@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Untuk Kamu Tersayang 💖</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      overflow: hidden;
+      height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+    }
+
+    /* Bintang */
+.stars {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 0;
+}
+
+.layer1 {
+  background: url("asset/foto2.jpg") repeat;
+  background-size: 120px 120px;
+  animation: moveStars 150s linear infinite;
+}
+
+.layer2 {
+  background: url("asset/foto3.jpg") repeat;
+  background-size: 150px 150px;
+  animation: moveStars 200s linear infinite;
+  opacity: 0.8;
+}
+
+.layer3 {
+  background: url("asset/foto4.jpg") repeat;
+  background-size: 180px 180px;
+  animation: moveStars 250s linear infinite;
+  opacity: 0.6;
+}
+
+.layer4 {
+  background: url("asset/foto5.jpg") repeat;
+  background-size: 200px 200px;
+  animation: moveStars 300s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes moveStars {
+  from { background-position: 0 0; }
+  to { background-position: -10000px 5000px; }
+}
+
+    /* Planet + Foto Orbit */
+    .planet {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, #ff6699, #660033);
+      border-radius: 50%;
+      box-shadow: 0 0 40px rgba(255,100,200,0.8);
+      z-index: 1;
+    }
+
+    .orbit {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: rotate 40s linear infinite;
+      z-index: 1;
+    }
+
+    .orbit img {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 15px rgba(255,255,255,0.8);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    .orbit img:nth-child(1) { top: -40px; left: 160px; }
+    .orbit img:nth-child(2) { top: 160px; left: -40px; }
+    .orbit img:nth-child(3) { top: 160px; right: -40px; }
+    .orbit img:nth-child(4) { bottom: -40px; left: 160px; }
+
+    @keyframes rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg);}
+      to { transform: translate(-50%, -50%) rotate(360deg);}
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1);}
+      50% { transform: scale(1.2);}
+    }
+
+    /* Teks mengetik */
+    .typing {
+      position: absolute;
+      bottom: 10%;
+      width: 100%;
+      text-align: center;
+      font-size: 24px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid rgba(255,255,255,0.7);
+      animation: caret 0.8s infinite;
+      z-index: 2;
+    }
+    @keyframes caret {
+      50% { border-color: transparent; }
+    }
+
+    /* Tombol musik */
+    .music-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 100, 200, 0.7);
+      border: none;
+      padding: 10px 15px;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+      z-index: 2;
+    }
+    .music-btn:hover { background: rgba(255, 100, 200, 1); }
+
+    /* Love particles */
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 20px;
+      animation: floatUp 5s linear forwards;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0) scale(1); opacity: 1;}
+      to { transform: translateY(-600px) scale(2); opacity: 0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars layer1"></div>
+  <div class="stars layer2"></div>
+  <div class="stars layer3"></div>
+  <div class="stars layer4"></div>
+  <div class="planet"></div>
+  <div class="orbit">
+    <img src="asset\foto1.jpg" alt="foto1">
+    <img src="asset\foto7.jpg" alt="foto2">
+    <img src="asset\foto8.jpg" alt="foto3">
+    <img src="asset\foto9.jpg" alt="foto4">
+  </div>
+
+  <div class="typing" id="typing"></div>
+
+  <button class="music-btn" onclick="toggleMusic()">🎶 Putar Musik</button>
+  <audio id="bg-music" src="asset/musik-romantis.mp3" loop></audio>
+
+  <script>
+    // Typing effect
+    const text = "i luvvvvvvvvvvvvvvvv uuuuuuuuuuu💖";
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    typeWriter();
+
+    // Music toggle
+    const music = document.getElementById("bg-music");
+    const btn = document.querySelector(".music-btn");
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        btn.innerText = "⏸ Jeda Musik";
+      } else {
+        music.pause();
+        btn.innerText = "🎶 Putar Musik";
+      }
+    }
+
+    // Love particles
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.innerHTML = "❤";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 1000);
+  </script>
+</body>
+</html>
